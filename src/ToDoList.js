@@ -11,6 +11,9 @@ class TodoList extends Component {
     };
 
    this.addItem = this.addItem.bind(this);
+
+   // Ensure that all references to 'this' inside deleteItem reference the correct thing
+   this.deleteItem = this.deleteItem.bind(this);
  }
   addItem(e) {
 
@@ -36,11 +39,25 @@ class TodoList extends Component {
     }
 
     console.log(itemArray);
-
+  
     // Override the event's default behavior
     // Do not want the page to reload and clear everything out so this blocks the default behavior
     e.preventDefault();
   }
+
+  // Passing the key from the clicked item and checking the key against all the items currently stored (the filter method)
+  // This creates a new array of filteredItems that contains everything except the item being deleted
+  // The filtered array is then set as the new 'items' property in the state object
+  deleteItem(key) {
+    var filteredItems = this.state.items.filter(function (item) {
+      return (item.key !== key);
+    });
+
+    this.setState({
+      items: filteredItems
+    });
+  }
+
  render() {
    return (
      <div className="todoListMain">
@@ -54,8 +71,10 @@ class TodoList extends Component {
            <button type="submit">add</button>
          </form>
        </div>
-       {/*  */}
-       <TodoItems entries={this.state.items}/>
+       {/* The component know has knowledge of a prop called entries and delete */}
+       {/* This connects the delete function */}
+       <TodoItems entries={this.state.items}
+                  delete={this.deleteItem}/>
      </div>
    );
  }

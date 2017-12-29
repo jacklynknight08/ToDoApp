@@ -66,9 +66,9 @@ class TodoList extends Component {
         {/* Call the addItem method when the event is heard */}
          <form onSubmit={this.addItem}>
           {/* Store a reference to our input element to access it anywhere inside the component */}
-           <input ref={(a) => this._inputElement = a} placeholder="enter task">
+           <input ref={(a) => this._inputElement = a} placeholder="Enter Task...">
            </input>
-           <button type="submit">add</button>
+           <button type="submit">+</button>
          </form>
        </div>
        {/* The component know has knowledge of a prop called entries and delete */}

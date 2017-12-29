@@ -7,10 +7,18 @@ class TodoItems extends Component {
         this.createTasks = this.createTasks.bind(this);
     }
 
+    // Defining the delete function to take the argument for the item key and bind 'this' in the constructor
+    delete(key) {
+        this.props.delete(key);
+    }
+
     // The value of the listItems variable (below) is an array of li elements containing the content to print
     // Set the key attribute on each element to make it easier to keep track
+    // Listen for click event and call delete
+    // Using the arrow function maintains the default event argument while allowing me to pass in my own argument
     createTasks(item) {
-        return <li key={item.key}>{item.text}</li>
+        return <li onClick={() => this.delete(item.key)} 
+                    key={item.key}>{item.text}</li>
     }
 
     render() {
